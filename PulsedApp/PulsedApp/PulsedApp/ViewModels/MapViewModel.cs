@@ -7,6 +7,8 @@ namespace PulsedApp.ViewModels
 {
     public class MapViewModel : BaseViewModel
     {
+        public string Image { get => "pulsed_map.png"; }
+
         public MapViewModel()
         {
             Title = "Map";

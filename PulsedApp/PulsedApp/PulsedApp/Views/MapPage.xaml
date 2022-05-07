@@ -12,9 +12,7 @@
     <ContentPage.Content>
         <Grid Padding="20">
             <local:PinchToZoomContainer>
-                <local:PinchToZoomContainer.Content>
-                    <Image Source="pulsed_map.png"/>
-                </local:PinchToZoomContainer.Content>
+                <Image Source="{Binding Image}"/>
             </local:PinchToZoomContainer>
         </Grid>
     </ContentPage.Content>
