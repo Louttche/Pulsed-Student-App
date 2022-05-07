@@ -1,6 +1,6 @@
-# Project Title
+# Pulsed Student App
 
-Simple overview of use/purpose.
+A mobile app to be used by students following Pulsed programs within Fontys.
 
 ## Description
 
@@ -8,25 +8,24 @@ An in-depth paragraph about your project and overview of use.
 
 ## Getting Started
 
-### Dependencies
+### Installing on Device
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+## Android
 
-### Installing
+You can either:
+* Download the apk available in the repo on your Android device and open it to install
+or
+* Download the apk from the [Deployment Service (eg,. PlayStore)]
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+## iOS
 
-### Executing program
+### Dependencies for Development
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+* Visual Studio (22)
+* Xamarin 5.0
+* TODO: Add libraries/packages used
 
-## Help
+### Help
 
 Any advise for common problems or issues.
 ```
@@ -35,28 +34,5 @@ command to run if program contains helper info
 
 ## Authors
 
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+name:           Katerina Nicolaidou Louttchenko
+student nr.:    3178692
