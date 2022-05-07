@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PulsedApp.ViewModels"
+             xmlns:local="clr-namespace:PulsedApp"
+             x:Class="PulsedApp.Views.MapPage">
+    
+    <ContentPage.BindingContext>
+        <vm:MapViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <local:PinchToZoomContainer>
+                <local:PinchToZoomContainer.Content>
+                    <Image Source="pulsed_map.png"/>
+                </local:PinchToZoomContainer.Content>
+            </local:PinchToZoomContainer>
+        </Grid>
+    </ContentPage.Content>
+    
+</ContentPage>

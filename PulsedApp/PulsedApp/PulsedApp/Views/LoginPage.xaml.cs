@@ -1,5 +1,4 @@
-﻿using PulsedApp.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,38 +11,42 @@ namespace PulsedApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        public WebView view;
-
         // URL properties for Fontys authentication
         string CLIENT_ID = "i874073-no-production";
         string REDIRECT_URI = "https://tas.fhict.nl/oob.html";
         string OAUTH_URL = "https://identity.fhict.nl/connect/authorize";
         string OAUTH_SCOPE = "fhict fhict_personal";
 
+        // TODO: store it more securely (in separate script)
+        string auth_token;
+
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            view = new WebView();
 
-            Content = new StackLayout
-            {
-                Children = { view }
-            };
+            string full_uri = OAUTH_URL + "?redirect_uri=" + REDIRECT_URI + "&response_type=token&client_id=" + CLIENT_ID + "&scope=" + OAUTH_SCOPE;
 
-            view.Navigated += View_Navigated;
-            view.Source = "http://google.com";
+            fontysLoginWebView.Navigated += CheckForToken;
+            fontysLoginWebView.HorizontalOptions = LayoutOptions.End;
+            fontysLoginWebView.Source = full_uri;
 
+            Label lbl = new Label();
+            lbl.Text = "Fontys Authentication";
+            lbl.HorizontalOptions = LayoutOptions.Start;
         }
 
-        private void View_Navigated(object sender, WebNavigatedEventArgs e)
+        private void CheckForToken(object sender, WebNavigatedEventArgs e)
         {
-            (sender as WebView).HeightRequest = Height;
+            if (e.Url.Contains("access_token="))
+            {
+                auth_token = e.Url.Split(new string[] { "#access_token=" }, StringSplitOptions.None)[1].Split('&')[0];
+                //Console.WriteLine("Token found: " + auth_token);
+            }
         }
     }
 }

@@ -15,3 +15,7 @@ D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\refint\PulsedApp.dll
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\PulsedApp.pdb
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\ref\PulsedApp.dll
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\Views\MapPage.xaml.g.cs
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\Views\ChatPage.xaml.g.cs
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\Views\EquipmentPage.xaml.g.cs
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\Views\SchedulePage.xaml.g.cs

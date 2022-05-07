@@ -653,3 +653,12 @@ D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Andr
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\stamp\_GenerateJavaStubs.stamp
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\stamp\_GeneratePackageManagerJava.stamp
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\stamp\_ResolveLibraryProjectImports.stamp
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\map.png
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\chat.png
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\equipment.png
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\schedule.png
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\icon_pulsed.png
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\logo_pulsed.png
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\logo_pulsed_with_slogan.png
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\pulsed_map.png
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\pulsed_poster.jpg
