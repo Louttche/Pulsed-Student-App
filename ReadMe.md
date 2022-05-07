@@ -8,24 +8,24 @@ An in-depth paragraph about your project and overview of use.
 
 ## Getting Started
 
-### Installing on Device
+## Installing on Device
 
-## Android
+### Android
 
 You can either:
 * Download the apk available in the repo on your Android device and open it to install
 or
 * Download the apk from the [Deployment Service (eg,. PlayStore)]
 
-## iOS
+### iOS
 
-### Dependencies for Development
+## Dependencies for Development
 
 * Visual Studio (22)
 * Xamarin 5.0
 * TODO: Add libraries/packages used
 
-### Help
+## Help
 
 Any advise for common problems or issues.
 ```
