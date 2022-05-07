@@ -6,6 +6,44 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\roboto\Roboto-Black.ttf" />
+    <None Remove="Fonts\roboto\Roboto-BlackItalic.ttf" />
+    <None Remove="Fonts\roboto\Roboto-Bold.ttf" />
+    <None Remove="Fonts\roboto\Roboto-BoldCondensed.ttf" />
+    <None Remove="Fonts\roboto\Roboto-BoldCondensedItalic.ttf" />
+    <None Remove="Fonts\roboto\Roboto-BoldItalic.ttf" />
+    <None Remove="Fonts\roboto\Roboto-Condensed.ttf" />
+    <None Remove="Fonts\roboto\Roboto-CondensedItalic.ttf" />
+    <None Remove="Fonts\roboto\Roboto-Italic.ttf" />
+    <None Remove="Fonts\roboto\Roboto-Light.ttf" />
+    <None Remove="Fonts\roboto\Roboto-LightItalic.ttf" />
+    <None Remove="Fonts\roboto\Roboto-Medium.ttf" />
+    <None Remove="Fonts\roboto\Roboto-MediumItalic.ttf" />
+    <None Remove="Fonts\roboto\Roboto-Regular.ttf" />
+    <None Remove="Fonts\roboto\Roboto-Thin.ttf" />
+    <None Remove="Fonts\roboto\Roboto-ThinItalic.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\roboto\Roboto-Black.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-BlackItalic.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-BoldCondensed.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-BoldCondensedItalic.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-BoldItalic.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-Condensed.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-CondensedItalic.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-Italic.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-Light.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-LightItalic.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-Medium.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-MediumItalic.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-Thin.ttf" />
+    <EmbeddedResource Include="Fonts\roboto\Roboto-ThinItalic.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.2" />
