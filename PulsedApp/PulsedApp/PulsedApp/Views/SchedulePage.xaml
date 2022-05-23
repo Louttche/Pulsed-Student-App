@@ -1,12 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PulsedApp.ViewModels"
              x:Class="PulsedApp.Views.SchedulePage">
+
+    <ContentPage.BindingContext>
+        <vm:ScheduleViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="{Binding lbl_debug}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <ListView BackgroundColor="LightGray" ItemsSource="{Binding events}"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Title}" HorizontalOptions="Start" FontSize="20" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Location}" HorizontalOptions="EndAndExpand" Padding="0,5,0,0"/>
+                                        <ImageButton Source="map.png" HeightRequest="30" HorizontalOptions="End"/>
+                                    </StackLayout>
+                                    
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding FullTime}" HorizontalOptions="Start"/>
+                                        <Label Text="{Binding EventDate}" HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>                
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
