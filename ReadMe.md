@@ -36,3 +36,5 @@ command to run if program contains helper info
 
 name:           Katerina Nicolaidou Louttchenko
 student nr.:    3178692
+
+name:           Marco Demartini
