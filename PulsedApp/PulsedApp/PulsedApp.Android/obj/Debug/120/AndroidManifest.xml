@@ -10,6 +10,7 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <application android:label="PulsedApp.Android" android:theme="@style/MainTheme" android:name="android.app.Application" android:allowBackup="true" android:icon="@mipmap/icon" android:debuggable="true" android:extractNativeLibs="true">
     <activity android:configChanges="orientation|smallestScreenSize|screenLayout|screenSize|uiMode" android:icon="@mipmap/icon" android:label="PulsedApp" android:theme="@style/MainTheme" android:name="crc64d202beb5405212f0.MainActivity" android:exported="true">
       <intent-filter>
@@ -29,4 +30,5 @@
     <receiver android:enabled="true" android:exported="false" android:name="crc643f46942d9dd1fff9.PowerSaveModeBroadcastReceiver" />
     <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="1999999999" android:authorities="com.companyname.pulsedapp.mono.MonoRuntimeProvider.__mono_init__" />
   </application>
+  <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
 </manifest>
