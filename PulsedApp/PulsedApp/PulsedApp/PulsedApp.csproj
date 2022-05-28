@@ -22,7 +22,9 @@
     <None Remove="Fonts\roboto\Roboto-Regular.ttf" />
     <None Remove="Fonts\roboto\Roboto-Thin.ttf" />
     <None Remove="Fonts\roboto\Roboto-ThinItalic.ttf" />
+    <None Remove="Resources\PulsedSchedule.json" />
     <None Remove="Resources\PulsedSchedule.xlsx" />
+    <None Remove="Resources\pulsed_database.db.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,13 +44,17 @@
     <EmbeddedResource Include="Fonts\roboto\Roboto-Regular.ttf" />
     <EmbeddedResource Include="Fonts\roboto\Roboto-Thin.ttf" />
     <EmbeddedResource Include="Fonts\roboto\Roboto-ThinItalic.ttf" />
+    <EmbeddedResource Include="Resources\PulsedSchedule.json" />
     <EmbeddedResource Include="Resources\PulsedSchedule.xlsx" />
+    <EmbeddedResource Include="Resources\pulsed_database.db.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
     <PackageReference Include="EPPlus" Version="6.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.2" />

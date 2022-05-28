@@ -1,6 +1,3 @@
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\bin\Debug\netstandard2.0\PulsedApp.deps.json
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\bin\Debug\netstandard2.0\PulsedApp.dll
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\bin\Debug\netstandard2.0\PulsedApp.pdb
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\PulsedApp.csproj.AssemblyReference.cache
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\PulsedApp.GeneratedMSBuildEditorConfig.editorconfig
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\App.xaml.g.cs
@@ -14,6 +11,9 @@ D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\PulsedApp.AssemblyInfoInputs.cache
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\PulsedApp.AssemblyInfo.cs
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\PulsedApp.csproj.CoreCompileInputs.cache
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\bin\Debug\netstandard2.0\PulsedApp.deps.json
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\bin\Debug\netstandard2.0\PulsedApp.dll
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\bin\Debug\netstandard2.0\PulsedApp.pdb
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\XamlC.stamp
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\PulsedApp.dll
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp\obj\Debug\netstandard2.0\refint\PulsedApp.dll
