@@ -14,19 +14,30 @@ using OfficeOpenXml;
 using System.Diagnostics;
 using System.Collections.Generic;
 using PulsedApp.Services;
+using System.Globalization;
+using System.Linq;
 
 namespace PulsedApp.ViewModels
 {
     public class ScheduleViewModel : BaseViewModel
     {
-        string xls_filename = "PulsedSchedule.xlsx";
-        string cacheFile = "";
+        // Refresh list
+        public ICommand RefreshCommand { get; }
+        public ICommand SortByParticipantTypeCommand { get; }
+
+        enum ScheduleDateSort
+        {
+            Today,
+            Weekly,
+            Monthly,
+        }
 
         private static PulsedDatabaseService pDB;
+        public ObservableRangeCollection<Event> ScheduleEvents { get; set; }
+        public ObservableRangeCollection<string> EventMemberTypes { get; set; }
+        //public ObservableRangeCollection<Grouping<string, Event>> eventsGroups = new ObservableRangeCollection<Grouping<string, Event>>();
 
-        public ObservableRangeCollection<Event> events { get; set; }
-
-        public ObservableRangeCollection<Grouping<string, Event>> eventsGroups = new ObservableRangeCollection<Grouping<string, Event>>();
+        public string dateFormat = "dddd MMMM dd";
 
         // UI stuff
         public string lbl_debug { get; set; }
@@ -34,19 +45,66 @@ namespace PulsedApp.ViewModels
         public ScheduleViewModel()
         {
             Title = "Schedule";
-            pDB = new PulsedDatabaseService();
-
-            events = new ObservableRangeCollection<Event>();
-            
-            //GetEventsFromXLSResource(); // TODO: Fix
             RefreshCommand = new AsyncCommand(Refresh);
-            //GetEventsFromDBCommand = new AsyncCommand(GetEventsFromDB);
+            SortByParticipantTypeCommand = new AsyncCommand(SortByParticipantType);
+
+            if (pDB == null)
+            {
+                //GetEventsFromXLSResource(); // TODO: Fix
+                pDB = new PulsedDatabaseService();
+
+                EventMemberTypes = new ObservableRangeCollection<string>();
+                //EventMemberTypes.AddRange(pDB.MemberTypes);
+                //Debug.WriteLine($"Nr of types: {EventMemberTypes.Count()}");
+
+                ScheduleEvents = new ObservableRangeCollection<Event>();
+            }
+
+            DisplayTodayEvents();
         }
 
-        // Refresh list
-        public ICommand RefreshCommand { get; }
+        private void DisplayEventsByDate(string date) {
+            // Get date chosen by user
+            // Parse date to format: "THURSDAY NOVEMBER 18" | DAYNAME MONTH DAYNUMBER
 
-        //public ICommand GetEventsFromDBCommand { get; }
+            // Get events with of that date
+        }
+
+        private void DisplayTodayEvents() {
+            DateTime todayDate = DateTime.Now;
+            string formattedDate = "THURSDAY NOVEMBER 18";
+            lbl_debug = formattedDate.ToUpper();
+
+            this.ScheduleEvents.AddRange(pDB.GetEventsByDate(formattedDate));
+            Debug.WriteLine($"Displaying {this.ScheduleEvents.Count} events");
+        }
+
+        private void DisplayCurrentWeekEvents()
+        {
+            // find dates of current week
+            DateTime startOfWeek = DateTime.Today.AddDays(
+                (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek -
+                (int)DateTime.Today.DayOfWeek);
+
+            string week_date_range = string.Join("," + Environment.NewLine, Enumerable
+                .Range(0, 7)
+                .Select(i => startOfWeek
+                    .AddDays(i)
+                    .ToString(dateFormat)));
+
+            // for each date of the current week
+            DateTime todayDate = DateTime.Now;
+            lbl_debug = todayDate.ToString(dateFormat).ToUpper();
+
+            //string formattedDate = "THURSDAY NOVEMBER 18";
+            //events.AddRange(pDB.GetEventsByDate(formattedDate));
+        }
+
+        async Task SortByParticipantType()
+        {
+
+            await Task.Delay(2000);
+        }
 
         async Task Refresh()
         {
@@ -54,48 +112,6 @@ namespace PulsedApp.ViewModels
             await Task.Delay(2000);
             IsBusy = false;
         }
-
-        // TODO: Get from DB, not JSON
-        //async void GetEventsFromJSON()
-        //{
-        //    await Task.Delay(1000);
-        //    // TODO: Get current day's events
-
-        //    // Temp code
-        //    var asm = IntrospectionExtensions.GetTypeInfo(typeof(ScheduleViewModel)).Assembly;
-
-        //    // Set cache path + filename to save to after
-        //    cacheFile = Path.Combine(FileSystem.CacheDirectory, json_filename);
-        //    if (File.Exists(cacheFile)) { File.Delete(cacheFile); }
-
-        //    // Find schedule in embedded resources
-        //    foreach (var res in asm.GetManifestResourceNames())
-        //    {
-        //        if (res.Contains(json_filename))
-        //        {
-        //            Debug.WriteLine("found resource: " + res);
-        //            Stream resStream = asm.GetManifestResourceStream(res);
-
-        //            // read the json stream
-        //            string json_str = "";
-        //            using (var reader = new StreamReader(resStream))
-        //            {
-        //                json_str = reader.ReadToEnd();
-        //                //Debug.WriteLine($"json string from resource: {json_str}");
-
-        //                List<Event> eee = ParseSchedule.ParseJSON(json_str);
-        //                if (eee != null)
-        //                {
-        //                    Debug.WriteLine($"Parsed {eee.Count} events.");
-        //                    events.Clear();
-        //                    events.AddRange(eee);
-        //                }
-
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
 
         private FileStream SaveStreamToFile(string fileFullPath, Stream stream)
         {

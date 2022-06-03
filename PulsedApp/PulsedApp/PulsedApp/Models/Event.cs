@@ -6,8 +6,7 @@ namespace PulsedApp.Models
     public class Event
     {
         public static int id = 1;
-        static int generateId()
-        {
+        static int generateId() {
             return id++;
         }
 
@@ -19,10 +18,10 @@ namespace PulsedApp.Models
         //[Indexed]
         //public int locationID { get; set; }
         public string ParticipantType { get; set; }
-        public string EventDate { get; set; }
+        public string EventDate { get; set; } // "THURSDAY NOVEMBER 18"
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-        public string FullTime { get; set; }
+        //public string FullTime { get; set; }
 
         public Event() { }
 
@@ -35,7 +34,16 @@ namespace PulsedApp.Models
             this.EventDate = date;
             this.StartTime = startTime;
             this.EndTime = endTime;
-            FullTime = $"{startTime} - {endTime}";
+        }
+
+        public string GetTimeToString() {
+            return $"{this.StartTime} - {this.EndTime}";
+        }
+
+        public DateTime GetDateTime() {
+            DateTime dt;
+            DateTime.TryParse(this.EventDate, out dt);
+            return dt;
         }
     }
 }

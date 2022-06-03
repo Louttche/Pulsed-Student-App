@@ -11,6 +11,7 @@ using MvvmHelpers;
 using System.Threading.Tasks;
 using System.Reflection;
 using Xamarin.Essentials;
+using System.Globalization;
 
 namespace PulsedApp.Extensions
 {
@@ -18,49 +19,66 @@ namespace PulsedApp.Extensions
     {
         static string json_filename = "PulsedSchedule.json";
 
-        public static List<Event> GetEventsFromJSON()
+        public static (List<Event> parsedEvents, List<string> participantTypes) GetEventsFromJSON()
         {
-            List<Event> events = new List<Event>();
-
-            //await Task.Delay(1000);
-            // TODO: Get current day's events
-
-            // Temp code
-            var asm = IntrospectionExtensions.GetTypeInfo(typeof(ParseSchedule)).Assembly;
-
-            // Set cache path + filename to save to after
-            string cacheFile = Path.Combine(FileSystem.CacheDirectory, json_filename);
-            if (File.Exists(cacheFile)) { File.Delete(cacheFile); }
-
-            // Find schedule in embedded resources
-            foreach (var res in asm.GetManifestResourceNames())
+            try
             {
-                if (res.Contains(json_filename))
+                List<Event> events = new List<Event>();
+                List<string> pt = new List<string>();
+
+                var asm = IntrospectionExtensions.GetTypeInfo(typeof(ParseSchedule)).Assembly;
+
+                // Set cache path + filename to save to after
+                string cacheFile = Path.Combine(FileSystem.CacheDirectory, json_filename);
+                if (File.Exists(cacheFile)) { File.Delete(cacheFile); }
+
+                // Find schedule in embedded resources
+                foreach (var res in asm.GetManifestResourceNames())
                 {
-                    Debug.WriteLine("found resource: " + res);
-                    Stream resStream = asm.GetManifestResourceStream(res);
-
-                    // read the json stream
-                    string json_str = "";
-                    using (var reader = new StreamReader(resStream))
+                    if (res.Contains(json_filename))
                     {
-                        json_str = reader.ReadToEnd();
-                        //Debug.WriteLine($"json string from resource: {json_str}");
+                        Debug.WriteLine("found resource: " + res);
+                        Stream resStream = asm.GetManifestResourceStream(res);
 
-                        List<Event> eee = ParseSchedule.ParseJSON(json_str);
-                        if (eee != null)
+                        // read the json stream
+                        string json_str = "";
+                        using (var reader = new StreamReader(resStream))
                         {
-                            Debug.WriteLine($"Parsed {eee.Count} events.");
-                            events.Clear();
-                            events.AddRange(eee);
-                        }
+                            json_str = reader.ReadToEnd();
+                            //Debug.WriteLine($"json string from resource: {json_str}");
 
-                        break;
+                            List<Event> eee = ParseSchedule.ParseJSON(json_str);
+                            pt.AddRange(GetParticipantTypes(eee));
+                            if (eee != null) {
+                                Debug.WriteLine($"Parsed {eee.Count} events.");
+                                events.Clear();
+                                events.AddRange(eee);
+                            }
+
+                            break;
+                        }
                     }
+                }
+
+                return (events, pt);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Couldn't parse events from JSON. - {ex.ToString()}");
+                return (null, null);
+            }
+        }
+
+        private static List<string> GetParticipantTypes(List<Event> events)
+        {
+            List<string> result = new List<string>();
+            foreach (Event e in events) {
+                if (!result.Contains(e.ParticipantType)) {
+                    result.Add(e.ParticipantType);
                 }
             }
 
-            return events;
+            return result;
         }
 
         // Get events by parsing the xls file from embedded resources
@@ -123,13 +141,13 @@ namespace PulsedApp.Extensions
         //    }
         //}
 
-        public static List<Event> ParseXLS_FromPath(string filepath)
+        public static (List<Event> events, Dictionary<string, string>  memberTypes) ParseXLS_FromPath(string filepath)
         {
             bool is_not_first_col = false;
             ExcelWorksheet currentSheet = null;
             List<Event> events = new List<Event>();
 
-            Dictionary<string, string> participantTypes = new Dictionary<string, string>(); // color code, type || type e.g. 'Pulsers', 'Empower All students'            
+            Dictionary<string, string> participantTypes = new Dictionary<string, string>(); // color code, type || type e.g. 'Pulsers', 'Empower All students'
 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -250,9 +268,9 @@ namespace PulsedApp.Extensions
                                         string participantType = participantTypes.First(pt => pt.Key == ColorValue).Value;
 
                                         // TODO: Create event and store it (TODO: in DB).
-                                        Event e = new Event(event_title, event_location, participantType, current_date, startTimeS, endTimeS);
-                                        if (e != null)
-                                            events.Add(e);
+                                        //Event e = new Event(event_title, event_location, participantType, current_date, startTimeS, endTimeS);
+                                        //if (e != null)
+                                        //    events.Add(e);
                                     }
 
                                     // ELSE we either need to get a date now or get top sheet info (member types)
@@ -278,7 +296,7 @@ namespace PulsedApp.Extensions
                 Debug.WriteLine($"Couldn't parse {filepath} - {e.ToString()}");
             }
             
-            return events;
+            return (events, participantTypes);
         }
 
         private static List<Event> ParseJSON(string json)
@@ -294,19 +312,20 @@ namespace PulsedApp.Extensions
             // for each key in json (event date)
             foreach (KeyValuePair<string, List<Event>> date_event_pair in date_events)
             {
-                string current_date = date_event_pair.Key;
+                string current_date = date_event_pair.Key; // shows week dates in month --> "7-11Feb"
 
                 foreach (Event ev in date_event_pair.Value)
                 {
                     // get event properties
                     string event_title = ev.Title;
                     string event_location = ev.Location;
+                    string event_date = ev.EventDate;
                     string participantType = ev.ParticipantType;
                     string startTimeS = ev.StartTime;
                     string endTimeS = ev.EndTime;
 
                     //create event object
-                   Event e = new Event(event_title, event_location, participantType, current_date, startTimeS, endTimeS);
+                    Event e = new Event(event_title, event_location, participantType, event_date, startTimeS, endTimeS);
                     // add event object to list
                     events.Add(e);
                 }

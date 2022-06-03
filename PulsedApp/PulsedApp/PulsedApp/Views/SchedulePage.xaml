@@ -12,9 +12,14 @@
         <StackLayout>
             <Label Text="{Binding lbl_debug}"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"
+                   BackgroundColor="DarkBlue"
+                   TextColor="White"/>
+            
+            <Picker ItemDisplayBinding="{Binding EventMemberTypes}"/>
 
-            <ListView BackgroundColor="LightGray" ItemsSource="{Binding events}"
+            <!-- TODO: Filter date or view weekly/daily -->
+            <ListView BackgroundColor="LightGray" ItemsSource="{Binding ScheduleEvents}"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
