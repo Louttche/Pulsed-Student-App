@@ -10,7 +10,6 @@ namespace PulsedApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Event> DataStore => DependencyService.Get<IDataStore<Event>>();
 
         bool isBusy = false;
         public bool IsBusy

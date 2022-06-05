@@ -177,4 +177,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\pulsed_poster.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\next.png" />
+  </ItemGroup>
 </Project>

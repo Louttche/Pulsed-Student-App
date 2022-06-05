@@ -1,3 +1,14 @@
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp-Signed.apk
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\assets\DocumentFormat.OpenXml.dll
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\bin\packaged_resources
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\PulsedApp.Android.dll
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\PulsedApp.Android.pdb
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp.apk
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp.aab
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp-Signed.aab
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp-Signed.apk.idsig
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\PulsedApp.dll
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\PulsedApp.pdb
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\MonoAndroid,Version=v12.0.AssemblyAttributes.cs
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\build.props
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\adb.props
@@ -33,15 +44,6 @@ D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Andr
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\R.txt
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\R.cs.flag
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\PulsedApp.Android.csproj.CoreCompileInputs.cache
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\PulsedApp.Android.dll
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\PulsedApp.Android.pdb
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp.apk
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp.aab
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp-Signed.aab
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp-Signed.apk
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\com.companyname.pulsedapp-Signed.apk.idsig
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\PulsedApp.dll
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\bin\Debug\PulsedApp.pdb
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\PulsedApp.Android.csproj.CopyComplete
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\PulsedApp.Android.dll
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\PulsedApp.Android.pdb
@@ -77,7 +79,6 @@ D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Andr
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\pulsed_poster.jpg
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\uploadflags.txt
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\resolvedassemblies.hash
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\assets\DocumentFormat.OpenXml.dll
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\assets\EPPlus.dll
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\assets\EPPlus.Interfaces.dll
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\assets\EPPlus.System.Drawing.dll
@@ -664,7 +665,6 @@ D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Andr
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\src\mono\com\google\android\material\textfield\TextInputLayout_OnEndIconChangedListenerImplementor.java
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\src\mono\MonoPackageManager_Resources.java
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\src\xamarin\essentials\fileProvider.java
-D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\bin\packaged_resources
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\src\com\companyname\pulsedapp\R.java
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\compressed_assemblies.arm64-v8a.s
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\android\compressed_assemblies.armeabi-v7a.s
@@ -694,3 +694,4 @@ D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Andr
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\stamp\_GenerateJavaStubs.stamp
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\stamp\_GeneratePackageManagerJava.stamp
 D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\stamp\_ResolveLibraryProjectImports.stamp
+D:\OneDrive - Office 365 Fontys\Uni\Minor\App\PulsedApp\PulsedApp\PulsedApp.Android\obj\Debug\120\res\drawable\next.png

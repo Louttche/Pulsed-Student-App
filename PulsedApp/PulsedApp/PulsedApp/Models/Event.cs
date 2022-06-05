@@ -21,7 +21,7 @@ namespace PulsedApp.Models
         public string EventDate { get; set; } // "THURSDAY NOVEMBER 18"
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-        //public string FullTime { get; set; }
+        public string FullTime { get; set; }
 
         public Event() { }
 
@@ -34,6 +34,7 @@ namespace PulsedApp.Models
             this.EventDate = date;
             this.StartTime = startTime;
             this.EndTime = endTime;
+            this.FullTime = GetTimeToString();
         }
 
         public string GetTimeToString() {
@@ -44,6 +45,20 @@ namespace PulsedApp.Models
             DateTime dt;
             DateTime.TryParse(this.EventDate, out dt);
             return dt;
+        }
+
+        public string GetMonth() {
+            // "THURSDAY NOVEMBER 18"
+            return this.EventDate.Split(' ')[1];
+        }
+
+        public string GetDay(bool dateNr = false)
+        {
+            // "THURSDAY NOVEMBER 18"
+            if (dateNr == true) // Get '18'
+                return this.EventDate.Split(' ')[2];
+            else // Get 'THURSDAY'
+                return this.EventDate.Split(' ')[0];
         }
     }
 }

@@ -47,12 +47,12 @@ namespace PulsedApp.Extensions
                             json_str = reader.ReadToEnd();
                             //Debug.WriteLine($"json string from resource: {json_str}");
 
-                            List<Event> eee = ParseSchedule.ParseJSON(json_str);
-                            pt.AddRange(GetParticipantTypes(eee));
-                            if (eee != null) {
-                                Debug.WriteLine($"Parsed {eee.Count} events.");
+                            List<Event> temp_events = ParseSchedule.ParseJSON(json_str);
+                            if (temp_events != null) {
+                                Debug.WriteLine($"Parsed {temp_events.Count} events.");
+                                pt.AddRange(GetParticipantTypes(temp_events));
                                 events.Clear();
-                                events.AddRange(eee);
+                                events.AddRange(temp_events);
                             }
 
                             break;
@@ -73,7 +73,7 @@ namespace PulsedApp.Extensions
         {
             List<string> result = new List<string>();
             foreach (Event e in events) {
-                if (!result.Contains(e.ParticipantType)) {
+                if (!result.Any(type => type == e.ParticipantType)) {
                     result.Add(e.ParticipantType);
                 }
             }
@@ -333,7 +333,6 @@ namespace PulsedApp.Extensions
 
             return events;
         }
-
         private static string GetMergedRangeAddress(this ExcelRange @this)
         {
             if (@this.Merge)
@@ -344,6 +343,44 @@ namespace PulsedApp.Extensions
             else
             {
                 return @this.Address;
+            }
+        }
+
+        private static FileStream SaveStreamToFile(string fileFullPath, Stream stream)
+        {
+            try
+            {
+                Debug.WriteLine($"Storing stream in {fileFullPath}...");
+
+                if (stream.Length == 0) return null;
+
+                //Create a FileStream object to write a stream to a file
+                using (FileStream fileStream = File.Create(fileFullPath, (int)stream.Length))
+                {
+                    // Fill the bytes[] array with the stream data
+                    byte[] bytesInStream = new byte[stream.Length];
+                    stream.Read(bytesInStream, 0, (int)bytesInStream.Length);
+
+                    // Use FileStream object to write to the specified file
+                    fileStream.Write(bytesInStream, 0, bytesInStream.Length);
+
+                    return fileStream;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Couldn't save stream to file - " + e.ToString());
+                return null;
+            }
+            finally
+            {
+                Debug.WriteLine($"Finished storing schedule at {fileFullPath}.");
+                // DEBUG Check if file was stored:
+                string[] files = Directory.GetFiles(FileSystem.CacheDirectory);
+                foreach (var file in files)
+                {
+                    Debug.WriteLine("Found file: " + file + " in " + fileFullPath);
+                }
             }
         }
     }

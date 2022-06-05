@@ -14,7 +14,9 @@ namespace PulsedApp.Services
     public class PulsedDatabaseService
     {
         public List<Event> Events { get; set; }
+        //public List<string> MemberTypes { get; set; }
         public List<string> MemberTypes { get; set; }
+
         static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyPulsedData.db");
         SQLiteConnection db = new SQLiteConnection(dbPath);
 
@@ -26,13 +28,15 @@ namespace PulsedApp.Services
                 this.Events = new List<Event>();
                 //this.Events.AddRange(ParseSchedule.GetEventsFromJSON());
                 (List<Event> events, List<string> memberTypes) = GetEvents();//GetEventsAsync().Result;
-                this.Events.AddRange(events);
+                
+                if (events != null)
+                    this.Events.AddRange(events);
 
-                this.MemberTypes = new List<string>();
-                this.MemberTypes.AddRange(memberTypes);
+                if (memberTypes != null)
+                    this.MemberTypes.AddRange(memberTypes.Where(m => m.Length > 0)); // filter out blank results
             }
             catch (Exception ex) {
-                Debug.WriteLine($"Couldn't get DB - {ex.Message}");
+                Debug.WriteLine($"Couldn't get DB - {ex.ToString()}");
             }
         }
 
@@ -43,7 +47,8 @@ namespace PulsedApp.Services
                 Debug.WriteLine($"Getting events for {date}...");
                 // TODO: Get events by date
                 List<Event> events = new List<Event>();
-                events.AddRange(this.Events.Where(e => e.EventDate.Equals(date)));   //(e => e.EventDate.ToUpper().Trim() == date.ToUpper().Trim()));
+                //(e => e.EventDate.ToUpper().Trim() == date.ToUpper().Trim()));
+                events.AddRange(this.Events.Where(e => e.EventDate.Equals(date)));
                 return events;
 
             } catch (Exception ex)
@@ -105,8 +110,7 @@ namespace PulsedApp.Services
 
         public (List<Event> events, List<string> participantTypes) GetEvents()
         {
-            try
-            {
+            try {
                 return ParseSchedule.GetEventsFromJSON();
             }
             catch (Exception ex)
