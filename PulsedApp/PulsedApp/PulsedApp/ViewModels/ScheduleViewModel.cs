@@ -37,7 +37,7 @@ namespace PulsedApp.ViewModels
         public ObservableRangeCollection<Event> ScheduleEvents { get; set; }
         public ObservableRangeCollection<string> EventMemberTypes { get; set; }
         //public ObservableRangeCollection<Grouping<string, Event>> EventsGroup { get; set; }
-        public List<EventsGroup> ScheduleEventsDayGroup { get; set; }
+        public ObservableRangeCollection<EventsGroup> ScheduleEventsDayGroup { get; set; }
 
         // View sorts the ScheduledEvents from this class
         public string[] ScheduleDateViews
@@ -52,7 +52,7 @@ namespace PulsedApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string dateFormat = "dddd MMMM dd";
+        public string dateFormat = "dddd MMMM d";
         public string lbl_debug { get; set; }
         private string scroll_s;
         public string lbl_scroll { get => scroll_s; set { scroll_s = value; OnPropertyChanged(); } }
@@ -80,7 +80,7 @@ namespace PulsedApp.ViewModels
                 {
                     ScheduleEvents = new ObservableRangeCollection<Event>();
                     EventMemberTypes = new ObservableRangeCollection<string>();
-                    ScheduleEventsDayGroup = new List<EventsGroup>();
+                    ScheduleEventsDayGroup = new ObservableRangeCollection<EventsGroup>();
 
                     //GetEventsFromXLSResource(); // TODO: Fix
                     pDB = new PulsedDatabaseService();
@@ -95,7 +95,6 @@ namespace PulsedApp.ViewModels
                 ViewTodayEvents();
             }
         }
-
         private void SortByParticipantType(int index)
         {
             try {
@@ -178,12 +177,21 @@ namespace PulsedApp.ViewModels
 
                 // TODO: Fix formattedDate
                 DateTime todayDate = DateTime.Now;
-                string formattedDate = "THURSDAY NOVEMBER 18";
-                lbl_debug = formattedDate.ToUpper();
 
-                this.ScheduleEvents.Clear();
-                this.ScheduleEvents.AddRange(pDB.GetEventsByDate(formattedDate));
-                Debug.WriteLine($"Displaying {this.ScheduleEvents.Count} events");
+                string formattedDate = todayDate.ToString(dateFormat);//"THURSDAY NOVEMBER 18";
+                lbl_debug = formattedDate;
+
+                // Using normal list of events
+                //this.ScheduleEvents.Clear();
+                //this.ScheduleEvents.AddRange(pDB.GetEventsByDate(formattedDate));
+
+                // Using list with grouping
+                this.ScheduleEventsDayGroup.Clear();
+                EventsGroup tempEG = new EventsGroup(formattedDate, " ");
+                tempEG.AddRange(pDB.GetEventsByDate(formattedDate));
+                this.ScheduleEventsDayGroup.Add(tempEG);
+
+                Debug.WriteLine($"Displaying {this.ScheduleEventsDayGroup[0].Count} events");
             }
             catch (Exception ex)
             {
@@ -193,7 +201,8 @@ namespace PulsedApp.ViewModels
         private void ViewWeeksEvents(List<string> weekRange)
         {
             try {
-                this.ScheduleEvents.Clear();
+                //this.ScheduleEvents.Clear();
+                this.ScheduleEventsDayGroup.Clear();
                 // for each date of the current week
                 foreach (string day in weekRange)
                 {
@@ -201,8 +210,8 @@ namespace PulsedApp.ViewModels
                     if (DateTime.TryParse(day, out parsedDate))
                     {
                         // default format "dd-MMMM-yyyy"
-                        string formattedDate = "THURSDAY NOVEMBER 18"; // pass as format "THURSDAY NOVEMBER 18"
-                        Debug.WriteLine("Parsed date to: " + parsedDate.ToString(dateFormat));
+                        string formattedDate = parsedDate.ToString(dateFormat).ToUpper(); //"THURSDAY NOVEMBER 18"; // pass as format "THURSDAY NOVEMBER 18"
+                        //Debug.WriteLine("Parsed date to: " + );
 
                         // Group events by DAY
                         EventsGroup currentWeekGroup = new EventsGroup(formattedDate.Split(' ')[0], formattedDate.Split(' ')[2]);
@@ -211,7 +220,7 @@ namespace PulsedApp.ViewModels
                         // Add events in group
                         currentWeekGroup.AddRange(pDB.GetEventsByDate(formattedDate));
                         // Add group of events to list of groups
-                        ScheduleEventsDayGroup.Add(currentWeekGroup);
+                        this.ScheduleEventsDayGroup.Add(currentWeekGroup);
                     }
                 }
             }

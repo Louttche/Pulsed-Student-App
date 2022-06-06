@@ -48,7 +48,7 @@ namespace PulsedApp.Services
                 // TODO: Get events by date
                 List<Event> events = new List<Event>();
                 //(e => e.EventDate.ToUpper().Trim() == date.ToUpper().Trim()));
-                events.AddRange(this.Events.Where(e => e.EventDate.Equals(date)));
+                events.AddRange(this.Events.Where(e => e.EventDate.ToUpper().Trim() == date.ToUpper().Trim()));
                 return events;
 
             } catch (Exception ex)
