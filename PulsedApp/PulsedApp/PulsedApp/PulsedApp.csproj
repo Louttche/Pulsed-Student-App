@@ -24,6 +24,7 @@
     <None Remove="Fonts\roboto\Roboto-ThinItalic.ttf" />
     <None Remove="Resources\PulsedSchedule.json" />
     <None Remove="Resources\PulsedSchedule.xlsx" />
+    <None Remove="Resources\PulsedSchedule_1.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +46,7 @@
     <EmbeddedResource Include="Fonts\roboto\Roboto-ThinItalic.ttf" />
     <EmbeddedResource Include="Resources\PulsedSchedule.json" />
     <EmbeddedResource Include="Resources\PulsedSchedule.xlsx" />
+    <EmbeddedResource Include="Resources\PulsedSchedule_1.json" />
   </ItemGroup>
 
   <ItemGroup>

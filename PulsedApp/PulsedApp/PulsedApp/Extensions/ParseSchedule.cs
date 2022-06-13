@@ -17,7 +17,7 @@ namespace PulsedApp.Extensions
 {
     public static class ParseSchedule
     {
-        static string json_filename = "PulsedSchedule.json";
+        static string json_filename = "PulsedSchedule.json";//"PulsedSchedule_1.json";
 
         public static (List<Event> parsedEvents, List<string> participantTypes) GetEventsFromJSON()
         {

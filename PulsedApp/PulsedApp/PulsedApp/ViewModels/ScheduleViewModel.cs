@@ -34,10 +34,15 @@ namespace PulsedApp.ViewModels
         }
 
         private static PulsedDatabaseService pDB;
-        public ObservableRangeCollection<Event> ScheduleEvents { get; set; }
         public ObservableRangeCollection<string> EventMemberTypes { get; set; }
-        //public ObservableRangeCollection<Grouping<string, Event>> EventsGroup { get; set; }
-        public ObservableRangeCollection<EventsGroup> ScheduleEventsDayGroup { get; set; }
+        public List<EventsGroup> ScheduleEventsGroup;
+        private ObservableRangeCollection<EventsGroup> sortedScheduleEventsGroup;
+        public ObservableRangeCollection<EventsGroup> SortedScheduleEventsGroup { get => sortedScheduleEventsGroup;
+            set {
+                sortedScheduleEventsGroup = value;
+                OnPropertyChanged();
+            }
+        }
 
         // View sorts the ScheduledEvents from this class
         public string[] ScheduleDateViews
@@ -78,23 +83,24 @@ namespace PulsedApp.ViewModels
 
                 if (pDB == null)
                 {
-                    ScheduleEvents = new ObservableRangeCollection<Event>();
                     EventMemberTypes = new ObservableRangeCollection<string>();
-                    ScheduleEventsDayGroup = new ObservableRangeCollection<EventsGroup>();
+                    ScheduleEventsGroup = new List<EventsGroup>();
+                    SortedScheduleEventsGroup = new ObservableRangeCollection<EventsGroup>();
 
+                    EventMemberTypes.Add("All");
                     //GetEventsFromXLSResource(); // TODO: Fix
                     pDB = new PulsedDatabaseService();
-                    EventMemberTypes.Add("All");
-                    EventMemberTypes.AddRange(pDB.MemberTypes);
                 }
             }
             catch (Exception ex) {
                 Debug.WriteLine($"Couldn't initialize ScheduleViewModel - {ex.ToString()}");
             }
             finally {
-                ViewTodayEvents();
+                selectedDateView = 0; // Set date view before participant sorting (gets all events)
+                selectedParticipantType = 0; // filters events
             }
         }
+
         private void SortByParticipantType(int index)
         {
             try {
@@ -103,15 +109,43 @@ namespace PulsedApp.ViewModels
                     string type_s = this.EventMemberTypes[index];
                     Debug.WriteLine("Showing events for " + type_s);
 
-                    this.ScheduleEvents.Clear();
-                    this.ScheduleEvents.AddRange(pDB.Events.Where(e => e.ParticipantType.Equals(type_s)));
-                }
+                    // clear and add all the events in sorted list before filtering to sort it
+                    this.SortedScheduleEventsGroup.Clear();
+                    int eg_i = 0;
+                    foreach (EventsGroup eg in ScheduleEventsGroup)
+                    {
+                        this.SortedScheduleEventsGroup.Add(new EventsGroup(eg.Title, eg.ShortName));
+                        foreach (Event ev in eg)
+                        {
+                            this.SortedScheduleEventsGroup[eg_i].Add(new Event(ev.Title, ev.Location, ev.ParticipantType, ev.EventDate, ev.StartTime, ev.EndTime));
+                        }
+                        eg_i++;
+                    }
 
+                    // if sorting by 'All' dont remove any events
+                    if (type_s == "All")
+                        return;
+
+                    // for every group in the eventgroup list
+                    for (int i_eg = 0; i_eg < this.SortedScheduleEventsGroup.Count(); i_eg++)
+                    {
+                        for (int i_ev = this.SortedScheduleEventsGroup[i_eg].Count() - 1; i_ev >= 0; i_ev--)
+                        {
+                            Event ev = this.SortedScheduleEventsGroup[i_eg][i_ev];
+                            if (ev.ParticipantType != null && ev.ParticipantType.ToUpper().Trim() != type_s.ToUpper().Trim())
+                                this.SortedScheduleEventsGroup[i_eg].RemoveAt(i_ev);
+                        }
+                    }
+
+                    Debug.WriteLine($"sorted - {this.SortedScheduleEventsGroup[0].Count}");
+                    Debug.WriteLine($"og - {this.ScheduleEventsGroup[0].Count}");
+                }
             }
             catch (Exception ex) {
                 Debug.WriteLine($"Couldn't SortByParticipantType - {ex.ToString()}");
             }
         }
+
         private void SortByDateView(int index)
         {
             try
@@ -148,6 +182,8 @@ namespace PulsedApp.ViewModels
                         default:
                             break;
                     }
+
+                    //this.SortedScheduleEventsGroup.AddRange(ScheduleEventsGroup);
                 }
             }
             catch (Exception ex)
@@ -161,8 +197,6 @@ namespace PulsedApp.ViewModels
                 // TODO: Parse date
                 string formattedDate = "";
                 // display events of that date
-                this.ScheduleEvents.Clear();
-                this.ScheduleEvents.AddRange(pDB.GetEventsByDate(formattedDate));
             }
             catch (Exception ex)
             {
@@ -173,25 +207,23 @@ namespace PulsedApp.ViewModels
         {
             try
             {
-                // TODO: Put all Events in one group
-
-                // TODO: Fix formattedDate
                 DateTime todayDate = DateTime.Now;
 
                 string formattedDate = todayDate.ToString(dateFormat);//"THURSDAY NOVEMBER 18";
                 lbl_debug = formattedDate;
 
-                // Using normal list of events
-                //this.ScheduleEvents.Clear();
-                //this.ScheduleEvents.AddRange(pDB.GetEventsByDate(formattedDate));
-
                 // Using list with grouping
-                this.ScheduleEventsDayGroup.Clear();
+                this.ScheduleEventsGroup.Clear();
                 EventsGroup tempEG = new EventsGroup(formattedDate, " ");
                 tempEG.AddRange(pDB.GetEventsByDate(formattedDate));
-                this.ScheduleEventsDayGroup.Add(tempEG);
+                this.ScheduleEventsGroup.Add(tempEG);
 
-                Debug.WriteLine($"Displaying {this.ScheduleEventsDayGroup[0].Count} events");
+                // Set participant types of today
+                this.EventMemberTypes.Clear();
+                this.EventMemberTypes.Add("All");
+                this.EventMemberTypes.AddRange(GetParticipantsOfCurrentEvents());
+
+                Debug.WriteLine($"Displaying {this.ScheduleEventsGroup[0].Count} events");
             }
             catch (Exception ex)
             {
@@ -202,7 +234,9 @@ namespace PulsedApp.ViewModels
         {
             try {
                 //this.ScheduleEvents.Clear();
-                this.ScheduleEventsDayGroup.Clear();
+                this.ScheduleEventsGroup.Clear();
+                this.EventMemberTypes.Clear();
+                this.EventMemberTypes.Add("All");
                 // for each date of the current week
                 foreach (string day in weekRange)
                 {
@@ -220,9 +254,12 @@ namespace PulsedApp.ViewModels
                         // Add events in group
                         currentWeekGroup.AddRange(pDB.GetEventsByDate(formattedDate));
                         // Add group of events to list of groups
-                        this.ScheduleEventsDayGroup.Add(currentWeekGroup);
+                        this.ScheduleEventsGroup.Add(currentWeekGroup);
                     }
                 }
+
+                // Add participant types of this week
+                this.EventMemberTypes.AddRange(GetParticipantsOfCurrentEvents());
             }
             catch (Exception ex) {
                 Debug.WriteLine("Couldn't show weekly events: " + ex.ToString());
@@ -253,6 +290,20 @@ namespace PulsedApp.ViewModels
                 Debug.WriteLine("Couldn't GetWeekRange - " + ex.ToString());
                 return null;
             }
+        }
+        private List<string> GetParticipantsOfCurrentEvents()
+        {
+            List<string> participants = new List<string>();
+
+            foreach (EventsGroup eg in this.ScheduleEventsGroup) {
+                foreach (Event ev in eg) {
+                    if (!participants.Contains(ev.ParticipantType)) {
+                        participants.Add(ev.ParticipantType);
+                    }
+                }
+            }
+
+            return participants;
         }
         async Task Refresh()
         {

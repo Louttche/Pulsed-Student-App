@@ -28,7 +28,7 @@ namespace PulsedApp.Models
         public Event(string title, string location, string participantType, string date, string startTime, string endTime)
         {
             this.eID = generateId();
-            this.Title = title;
+            this.Title = title; // remove potential double spaces //.Replace("  ", " ")
             this.Location = location;
             this.ParticipantType = participantType;
             this.EventDate = date;

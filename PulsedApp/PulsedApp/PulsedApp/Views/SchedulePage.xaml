@@ -75,7 +75,8 @@
                    BackgroundColor="DarkBlue"
                    TextColor="White"/>-->
 
-            <ListView BackgroundColor="LightGray" ItemsSource="{Binding ScheduleEventsDayGroup}" HasUnevenRows="true"
+            <!--ScheduleEventsGroup-->
+            <ListView BackgroundColor="LightGray" ItemsSource="{Binding SortedScheduleEventsGroup}" HasUnevenRows="true"
                       GroupDisplayBinding="{Binding Title}"
                       GroupShortNameBinding="{Binding ShortName}"
                       IsGroupingEnabled="true"> <!-- true for groups -->

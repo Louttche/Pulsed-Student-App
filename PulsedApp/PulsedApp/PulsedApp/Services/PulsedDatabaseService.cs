@@ -26,14 +26,18 @@ namespace PulsedApp.Services
                 // TODO: connect to DB and add events
                 // Temp: Get from json file all events
                 this.Events = new List<Event>();
+                this.MemberTypes = new List<string>();
+
                 //this.Events.AddRange(ParseSchedule.GetEventsFromJSON());
                 (List<Event> events, List<string> memberTypes) = GetEvents();//GetEventsAsync().Result;
                 
                 if (events != null)
                     this.Events.AddRange(events);
 
-                if (memberTypes != null)
+                if (memberTypes != null) {
                     this.MemberTypes.AddRange(memberTypes.Where(m => m.Length > 0)); // filter out blank results
+                    Debug.WriteLine($"Found {MemberTypes.Count} member types.");
+                }
             }
             catch (Exception ex) {
                 Debug.WriteLine($"Couldn't get DB - {ex.ToString()}");
