@@ -27,14 +27,29 @@ namespace PulsedApp.ViewModels
         public ICommand ScrollPreviousCommand { get; }
 
         public enum scheduleDateSort {
-            Today,
+            //Today,
+            Daily,
             Weekly,
             Monthly,
-            Pick_Date
+            //Pick_Date
         }
 
+        public DateTime pickedDate { get; set; }
+
         private static PulsedDatabaseService pDB;
-        public ObservableRangeCollection<string> EventMemberTypes { get; set; }
+        private ObservableRangeCollection<string> eventMemberTypes;
+        public ObservableRangeCollection<string> EventMemberTypes {
+            get {
+                if (eventMemberTypes == null) {
+                    eventMemberTypes = new ObservableRangeCollection<string>();
+                    eventMemberTypes.Add("All");
+                    eventMemberTypes.AddRange(GetParticipantsOfCurrentEvents());
+                }
+                
+                return eventMemberTypes;
+            }
+            set { eventMemberTypes = value; }
+        }
         public List<EventsGroup> ScheduleEventsGroup;
         private ObservableRangeCollection<EventsGroup> sortedScheduleEventsGroup;
         public ObservableRangeCollection<EventsGroup> SortedScheduleEventsGroup { get => sortedScheduleEventsGroup;
@@ -45,11 +60,10 @@ namespace PulsedApp.ViewModels
         }
 
         // View sorts the ScheduledEvents from this class
-        public string[] ScheduleDateViews
-        {
+        public string[] ScheduleDateViews {
             get { return Enum.GetNames(typeof(scheduleDateSort)); }
         }
-        private int selectedDView;
+        private int selectedDView = 0;
         public int selectedDateView { get { return selectedDView; }
             set {
                 selectedDView = value;
@@ -63,8 +77,9 @@ namespace PulsedApp.ViewModels
         public string lbl_scroll { get => scroll_s; set { scroll_s = value; OnPropertyChanged(); } }
 
         // Type sorts what events to get from pDB class
-        private int selectedPType;
-        public int selectedParticipantType { get => selectedPType; set {
+        private int selectedPType = 0;
+        public int selectedParticipantType { get => selectedPType;
+            set {
                 selectedPType = value;
                 // Sort based on type
                 SortByParticipantType(selectedPType);
@@ -81,13 +96,11 @@ namespace PulsedApp.ViewModels
                 ScrollNextCommand = new AsyncCommand(ScrollNext);
                 ScrollPreviousCommand = new AsyncCommand(ScrollPrevious);
 
-                if (pDB == null)
-                {
+                if (pDB == null) {
                     EventMemberTypes = new ObservableRangeCollection<string>();
                     ScheduleEventsGroup = new List<EventsGroup>();
                     SortedScheduleEventsGroup = new ObservableRangeCollection<EventsGroup>();
 
-                    EventMemberTypes.Add("All");
                     //GetEventsFromXLSResource(); // TODO: Fix
                     pDB = new PulsedDatabaseService();
                 }
@@ -96,6 +109,7 @@ namespace PulsedApp.ViewModels
                 Debug.WriteLine($"Couldn't initialize ScheduleViewModel - {ex.ToString()}");
             }
             finally {
+                pickedDate = DateTime.Today; // set picked date to today
                 selectedDateView = 0; // Set date view before participant sorting (gets all events)
                 selectedParticipantType = 0; // filters events
             }
@@ -112,12 +126,11 @@ namespace PulsedApp.ViewModels
                     // clear and add all the events in sorted list before filtering to sort it
                     this.SortedScheduleEventsGroup.Clear();
                     int eg_i = 0;
-                    foreach (EventsGroup eg in ScheduleEventsGroup)
-                    {
+                    foreach (EventsGroup eg in ScheduleEventsGroup) {
                         this.SortedScheduleEventsGroup.Add(new EventsGroup(eg.Title, eg.ShortName));
-                        foreach (Event ev in eg)
-                        {
-                            this.SortedScheduleEventsGroup[eg_i].Add(new Event(ev.Title, ev.Location, ev.ParticipantType, ev.EventDate, ev.StartTime, ev.EndTime));
+                        foreach (Event ev in eg) {
+                            this.SortedScheduleEventsGroup[eg_i].Add(new Event(ev.Title, ev.Location,
+                                ev.ParticipantType,ev.EventDate, ev.StartTime, ev.EndTime));
                         }
                         eg_i++;
                     }
@@ -127,25 +140,20 @@ namespace PulsedApp.ViewModels
                         return;
 
                     // for every group in the eventgroup list
-                    for (int i_eg = 0; i_eg < this.SortedScheduleEventsGroup.Count(); i_eg++)
-                    {
-                        for (int i_ev = this.SortedScheduleEventsGroup[i_eg].Count() - 1; i_ev >= 0; i_ev--)
-                        {
+                    for (int i_eg = 0; i_eg < this.SortedScheduleEventsGroup.Count(); i_eg++) {
+                        // for every event in the group list
+                        for (int i_ev = this.SortedScheduleEventsGroup[i_eg].Count() - 1; i_ev >= 0; i_ev--) {
                             Event ev = this.SortedScheduleEventsGroup[i_eg][i_ev];
                             if (ev.ParticipantType != null && ev.ParticipantType.ToUpper().Trim() != type_s.ToUpper().Trim())
                                 this.SortedScheduleEventsGroup[i_eg].RemoveAt(i_ev);
                         }
                     }
-
-                    Debug.WriteLine($"sorted - {this.SortedScheduleEventsGroup[0].Count}");
-                    Debug.WriteLine($"og - {this.ScheduleEventsGroup[0].Count}");
                 }
             }
             catch (Exception ex) {
                 Debug.WriteLine($"Couldn't SortByParticipantType - {ex.ToString()}");
             }
         }
-
         private void SortByDateView(int index)
         {
             try
@@ -155,35 +163,38 @@ namespace PulsedApp.ViewModels
                     Debug.WriteLine("Selected " + this.ScheduleDateViews[index]);
                     switch (this.ScheduleDateViews[index])
                     {
-                        case "Pick_Date":
-                            // TODO: Show date picker
-                            // TODO: Get picked date
-                            DateTime pickedDate = DateTime.Today;
-                            lbl_scroll = pickedDate.ToString("dddd");
-                            ViewPickedDateEvents(pickedDate);
-                            break;
-                        case "Today":
-                            lbl_scroll = DateTime.Today.ToString("dddd");
-                            ViewTodayEvents();
+                        //case "Pick_Date":
+                        //    // TODO: Show date picker
+                        //    // TODO: Get picked date
+                        //    DateTime pickedDate = DateTime.Today;
+                        //    lbl_scroll = pickedDate.ToString("dddd");
+                        //    ViewPickedDateEvents(pickedDate);
+                        //    break;
+                        case "Daily": // "Today"
+                            lbl_scroll = this.pickedDate.ToString("dddd");
+                            ViewDailyEvents(this.pickedDate);
                             break;
                         case "Weekly":
                             List<string> wr = new List<string>();
                             // Display current week by default
-                            wr.AddRange(GetWeekRange(DateTime.Today));
+                            wr.AddRange(GetWeekRange(this.pickedDate));
                             lbl_scroll = $"{wr[0].Substring(0, 2)}-{wr.Last().Substring(0, 2)}";
                             // Show current week
                             ViewWeeksEvents(wr);
                             break;
                         case "Monthly":
                             // TODO: Show current month events
-                            lbl_scroll = DateTime.Today.ToString("MMM");
+                            lbl_scroll = this.pickedDate.ToString("MMM");
                             ViewMonthlyEvents();
                             break;
                         default:
                             break;
                     }
 
-                    //this.SortedScheduleEventsGroup.AddRange(ScheduleEventsGroup);
+                    // Set participant types of newly sorted events
+                    this.EventMemberTypes.Clear();
+                    this.EventMemberTypes.Add("All");
+                    this.EventMemberTypes.AddRange(GetParticipantsOfCurrentEvents());
                 }
             }
             catch (Exception ex)
@@ -203,13 +214,10 @@ namespace PulsedApp.ViewModels
                 Debug.WriteLine("Couldn't ViewPickedDateEvents - " + ex.ToString());
             }
         }
-        private void ViewTodayEvents()
+        private void ViewDailyEvents(DateTime date)
         {
-            try
-            {
-                DateTime todayDate = DateTime.Now;
-
-                string formattedDate = todayDate.ToString(dateFormat);//"THURSDAY NOVEMBER 18";
+            try {
+                string formattedDate = date.ToString(dateFormat);//"THURSDAY NOVEMBER 18";
                 lbl_debug = formattedDate;
 
                 // Using list with grouping
@@ -217,11 +225,6 @@ namespace PulsedApp.ViewModels
                 EventsGroup tempEG = new EventsGroup(formattedDate, " ");
                 tempEG.AddRange(pDB.GetEventsByDate(formattedDate));
                 this.ScheduleEventsGroup.Add(tempEG);
-
-                // Set participant types of today
-                this.EventMemberTypes.Clear();
-                this.EventMemberTypes.Add("All");
-                this.EventMemberTypes.AddRange(GetParticipantsOfCurrentEvents());
 
                 Debug.WriteLine($"Displaying {this.ScheduleEventsGroup[0].Count} events");
             }
@@ -235,8 +238,6 @@ namespace PulsedApp.ViewModels
             try {
                 //this.ScheduleEvents.Clear();
                 this.ScheduleEventsGroup.Clear();
-                this.EventMemberTypes.Clear();
-                this.EventMemberTypes.Add("All");
                 // for each date of the current week
                 foreach (string day in weekRange)
                 {
@@ -257,9 +258,6 @@ namespace PulsedApp.ViewModels
                         this.ScheduleEventsGroup.Add(currentWeekGroup);
                     }
                 }
-
-                // Add participant types of this week
-                this.EventMemberTypes.AddRange(GetParticipantsOfCurrentEvents());
             }
             catch (Exception ex) {
                 Debug.WriteLine("Couldn't show weekly events: " + ex.ToString());
@@ -295,10 +293,15 @@ namespace PulsedApp.ViewModels
         {
             List<string> participants = new List<string>();
 
-            foreach (EventsGroup eg in this.ScheduleEventsGroup) {
-                foreach (Event ev in eg) {
-                    if (!participants.Contains(ev.ParticipantType)) {
-                        participants.Add(ev.ParticipantType);
+            if (this.ScheduleEventsGroup != null) {
+                foreach (EventsGroup eg in this.ScheduleEventsGroup)
+                {
+                    foreach (Event ev in eg)
+                    {
+                        if (!participants.Contains(ev.ParticipantType))
+                        {
+                            participants.Add(ev.ParticipantType);
+                        }
                     }
                 }
             }
@@ -314,10 +317,52 @@ namespace PulsedApp.ViewModels
         async Task ScrollPrevious() {
             await Task.Delay(25);
             Debug.WriteLine("Previous button clicked.");
+
+            switch (selectedDateView)
+            {
+                case 0: // Today (Daily)
+                    // Display events of next day
+                    this.pickedDate = pickedDate.AddDays(-1);
+                    break;
+                case 1: // Weekly
+                    this.pickedDate = pickedDate.AddDays(-7);
+                    break;
+                case 2: // Monthly
+                    this.pickedDate = pickedDate.AddMonths(-1);
+                    break;
+                default:
+                    break;
+            }
+
+            // Refresh sorting
+            SortByDateView(selectedDateView);
+            // Show 'All' types
+            selectedParticipantType = 0;
         }
         async Task ScrollNext() {
             await Task.Delay(25);
             Debug.WriteLine("Next button clicked.");
+
+            switch (selectedDateView)
+            {
+                case 0: // Today (Daily)
+                    // Display events of next day
+                    this.pickedDate = pickedDate.AddDays(1);
+                    break;
+                case 1: // Weekly
+                    this.pickedDate = pickedDate.AddDays(7);
+                    break;
+                case 2: // Monthly
+                    this.pickedDate = pickedDate.AddMonths(1);
+                    break;
+                default:
+                    break;
+            }
+
+            // Refresh sorting
+            SortByDateView(selectedDateView);
+            // Show 'All' types
+            selectedParticipantType = 0;
         }
     }
 }

@@ -10,16 +10,10 @@
         <vm:ScheduleViewModel/>
     </ContentPage.BindingContext>
 
-    <!--<ContentPage.Resources>
-        <ResourceDictionary>
-            <xct:ItemSelectedEventArgsConverter x:Key="SelectedIndex"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>-->
-    
     <ContentPage.Content>
         <StackLayout>
             <Grid HeightRequest="60">
-                <Picker Title="For (e.g. 'Pulsers')" Grid.Column="0" ItemsSource="{Binding EventMemberTypes}" SelectedIndex="{Binding selectedParticipantType}" />
+                <Picker Title="For (e.g. 'Pulsers')" Grid.Column="0" ItemsSource="{Binding EventMemberTypes}" SelectedIndex="{Binding selectedParticipantType}" SelectedItem="All"/>
                 <Picker Title="View" Grid.Column="1" ItemsSource="{Binding ScheduleDateViews}" SelectedIndex="{Binding selectedDateView}"/>
             </Grid>
 
@@ -66,14 +60,6 @@
                     </VisualStateManager.VisualStateGroups>
                 </ImageButton>
             </Grid>
-
-            <!--<Label Text="{Binding lbl_debug}"
-                   VerticalTextAlignment="Center"
-                   HorizontalTextAlignment="Center"
-                   HorizontalOptions="Fill"
-                   HeightRequest="40"
-                   BackgroundColor="DarkBlue"
-                   TextColor="White"/>-->
 
             <!--ScheduleEventsGroup-->
             <ListView BackgroundColor="LightGray" ItemsSource="{Binding SortedScheduleEventsGroup}" HasUnevenRows="true"
