@@ -34,7 +34,8 @@ command to run if program contains helper info
 
 ## Authors
 
-name:           Katerina Nicolaidou Louttchenko
-student nr.:    3178692
-
-name:           Marco Demartini
+name:           Katerina Nicolaidou Louttchenko__
+student nr.:    3178692__
+__
+name:           Marco Demartini__
+student nr.:    3300951
